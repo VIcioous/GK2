@@ -56,7 +56,7 @@ public class Canva extends JPanel {
         readButtonJPG.setBounds(480,225,100,25);
         writeButtonJPG.setBounds(480,275,100,25);
         pathFileJPG.setBounds(480,325,100,25);
-        SwingUtilities.getRootPane()
+
 
         this.add(pathFile);
         this.add(readButton);
