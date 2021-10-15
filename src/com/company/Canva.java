@@ -20,29 +20,7 @@ public class Canva extends JPanel {
         setButtons();
     }
 
-    private void setButtons() {
 
-        readButton.addActionListener(e-> readFile(pathFile.getText()));
-;
-        readButton.setText("Read");
-        readButton.setBounds(480,25,100,25);
-        pathFile.setBounds(480,75,100,25);
-        
-        writeButtonJPG.addActionListener(e-> writeFileJPG(pathFileJPG.getText()));
-        readButtonJPG.addActionListener(e-> readFileJPG(pathFileJPG.getText()));
-        writeButtonJPG.setText("Write JPG");
-        readButtonJPG.setText("Read JPG");
-        readButtonJPG.setBounds(480,225,100,25);
-        writeButtonJPG.setBounds(480,275,100,25);
-        pathFileJPG.setBounds(480,325,100,25);
-
-        this.add(pathFile);
-        this.add(readButton);
-        this.add(writeButtonJPG);
-        this.add(pathFileJPG);
-        this.add(readButtonJPG);
-        this.setLayout(null);
-    }
 
     private void writeFileJPG(String path) {
         jpgService.writeJPG(path,imageJPG);
@@ -65,5 +43,26 @@ public class Canva extends JPanel {
     }
 
 
+    private void setButtons() {
 
+        readButton.addActionListener(e-> readFile(pathFile.getText()));
+        readButton.setText("Read");
+        readButton.setBounds(480,25,100,25);
+        pathFile.setBounds(480,75,100,25);
+        writeButtonJPG.addActionListener(e-> writeFileJPG(pathFileJPG.getText()));
+        readButtonJPG.addActionListener(e-> readFileJPG(pathFileJPG.getText()));
+        writeButtonJPG.setText("Write JPG");
+        readButtonJPG.setText("Read JPG");
+        readButtonJPG.setBounds(480,225,100,25);
+        writeButtonJPG.setBounds(480,275,100,25);
+        pathFileJPG.setBounds(480,325,100,25);
+        SwingUtilities.getRootPane()
+
+        this.add(pathFile);
+        this.add(readButton);
+        this.add(writeButtonJPG);
+        this.add(pathFileJPG);
+        this.add(readButtonJPG);
+        this.setLayout(null);
+    }
 }
