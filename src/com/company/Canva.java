@@ -15,6 +15,7 @@ public class Canva extends JPanel {
     private final JPGService jpgService = new JPGService();
     private BufferedImage imageJPG;
 
+
     Canva()
     {
         setButtons();
@@ -32,7 +33,8 @@ public class Canva extends JPanel {
     }
 
     private void readFile(String path) {
-        programFileReader.readFile(path);
+       imageJPG= programFileReader.readFile(path);
+       NewWindow window = new NewWindow(imageJPG);
     }
 
     @Override
