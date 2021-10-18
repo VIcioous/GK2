@@ -12,8 +12,6 @@ public class ProgramFileReader {
     private int columns;
     private int rows;
     private int maxColorValue;
-
-
     private StringBuilder content = new StringBuilder();
 
     private String result;
