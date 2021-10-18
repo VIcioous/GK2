@@ -50,16 +50,15 @@ public class ProgramFileReader {
             } else break;
 
         }
-        Color color;
         Scanner scanner = new Scanner(helper);
         columns = scanner.nextInt();
-        rows = scanner.nextInt();
+        rows = scanner.nextInt() -1;
         maxColorValue = scanner.nextInt();
         byte[] bytes = binaryReader.readAllBytes();
         binaryReader.close();
         BufferedImage img = new BufferedImage(columns, rows, BufferedImage.TYPE_INT_RGB);
         for (int row = 0; row < rows; row++)
-            for (int column = 0; column < columns - 1; column++) {
+            for (int column = 0; column < columns; column++) {
 
                 {
                     int index = row * columns + column;
