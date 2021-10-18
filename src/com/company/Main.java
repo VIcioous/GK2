@@ -5,8 +5,8 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args) {
-        JFrame f = new JFrame("Reading images");
-        f.setSize(600, 600);
+        JFrame f = new JFrame("Reading PPM");
+        f.setSize(200, 400);
         f.setLocation(300, 300);
         f.setResizable(false);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -12,9 +12,6 @@ public class ProgramFileReader {
     private int columns;
     private int rows;
     private int maxColorValue;
-    private StringBuilder content = new StringBuilder();
-
-    private String result;
 
     public BufferedImage readFile(String path, int width, int height) {
 
@@ -38,44 +35,48 @@ public class ProgramFileReader {
         return null;
     }
 
-    private BufferedImage getBufferedImageP6(String path, int width, int height) throws IOException {
-        BufferedInputStream binaryReader = new BufferedInputStream(new FileInputStream(new File("src/com/company/" + path + ".ppm")));
-        int ch;
-        int enterSigns = 0;
-        String helper = "";
-        while ((ch = binaryReader.read()) != -1) {
-            if (enterSigns < 3) {
-                if (ch == 10) enterSigns++;
-                if (enterSigns > 0) helper += (char) ch;
-            } else break;
+    private BufferedImage getBufferedImageP6(String path, int width, int height)  {
+        try {
+            BufferedInputStream binaryReader = new BufferedInputStream(new FileInputStream("src/com/company/" + path + ".ppm"));
+            int ch;
+            int enterSigns = 0;
+            String helper = "";
+            while ((ch = binaryReader.read()) != -1) {
+                if (enterSigns < 3) {
+                    if (ch == 10) enterSigns++;
+                    if (enterSigns > 0) helper += (char) ch;
+                } else break;
+
+            }
+            Scanner scanner = new Scanner(helper);
+            columns = scanner.nextInt();
+            rows = scanner.nextInt() - 1;
+            maxColorValue = scanner.nextInt();
+            byte[] bytes = binaryReader.readAllBytes();
+            binaryReader.close();
+            BufferedImage img = new BufferedImage(columns, rows, BufferedImage.TYPE_INT_RGB);
+            for (int row = 0; row < rows; row++)
+                for (int column = 0; column < columns; column++) {
+                    {
+                        int index = row * columns + column;
+                        int red = bytes[3 * index] & 0xFF;
+                        int green = bytes[3 * index + 1] & 0xFF;
+                        int blue = bytes[3 * index + 2] & 0xFF;
+                        int rgb = (red << 16) | (green << 8) | blue;
+                        img.setRGB(column, row, rgb);
+                    }
+                }
+            return returnResizedImage(width, height, img);
+        }catch (IOException ignored)
+        {
 
         }
-        Scanner scanner = new Scanner(helper);
-        columns = scanner.nextInt();
-        rows = scanner.nextInt() -1;
-        maxColorValue = scanner.nextInt();
-        byte[] bytes = binaryReader.readAllBytes();
-        binaryReader.close();
-        BufferedImage img = new BufferedImage(columns, rows, BufferedImage.TYPE_INT_RGB);
-        for (int row = 0; row < rows; row++)
-            for (int column = 0; column < columns; column++) {
-
-                {
-                    int index = row * columns + column;
-                    int red = bytes[3 * index] & 0xFF;
-                    int green = bytes[3 * index + 1] & 0xFF;
-                    int blue = bytes[3 * index + 2] & 0xFF;
-                    int rgb = (red << 16) | (green << 8) | blue;
-
-                    img.setRGB(column, row, rgb);
-                }
-            }
-        return returnResizedImage(width, height, img);
+        return null;
     }
 
 
     private BufferedImage getBufferedImageP3(BufferedReader reader, int width, int height) {
-        result = reader.lines().collect(Collectors.joining(System.lineSeparator())).replaceAll("#[^\r]*", "");
+        String result = reader.lines().collect(Collectors.joining(System.lineSeparator())).replaceAll("#[^\r]*", "");
         Scanner scanner = new Scanner(result);
         columns = scanner.nextInt();
         rows = scanner.nextInt();
